@@ -16,8 +16,10 @@ import re
 import shutil
 import time
 
-sourceDir = 'E:\\Movies\\Not seen\\'
-destDir = 'E:\\Movies\\'
+#sourceDir = 'E:\\Movies\\Not seen\\'
+#destDir = 'E:\\Movies\\'
+sourceDir = 'H:\\Movies\\Not Seen\\'
+destDir = 'H:\\Movies\\'
 LOG_LEVELS = {
     "DEBUG" : 100,
     "INFO" : 200,
@@ -59,7 +61,8 @@ def parseFilename(filename):
                  "WEB-DL","AAC","HDStar","JNS","DVDSCR","DivXNL",
                  "axxo","scOrp","MaNuDiL","SilverRG","MitZep",
                  "LIMITED","bdrip","saphire","etrg","FRENCH",
-                 "HDRip","English"];
+                 "HDRip","English","R5","NFO","LKRG","592x240",
+                 "25fps","689kbs","96mp3","MultiSub"];
     for nonostring in nonostrings:
         filename = re.sub(r'(?i)('+nonostring+')','',filename)
     filename = filename.split(',')[0]
