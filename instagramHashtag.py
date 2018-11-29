@@ -22,7 +22,7 @@ LOG_LEVELS = {
     "ERROR" : 300,
     "NONE" : 400
 }
-LOGLVL=LOG_LEVELS["NONE"]
+LOGLVL=LOG_LEVELS["DEBUG"]
 
 def log_error(exception, location):
     if(LOGLVL <= LOG_LEVELS["ERROR"]):
@@ -49,7 +49,7 @@ driver.find_elements_by_class_name("HoLwm")[0].click()
 driver.find_elements_by_class_name("x3qfX")[0].send_keys("#humansoftuck")
 time.sleep(1)
 driver.find_elements_by_class_name("Ap253")[0].click()
-time.sleep(6)
+time.sleep(2)
 
 SCROLL_PAUSE_TIME = 0.5
 
@@ -79,16 +79,20 @@ for elem in driver.find_elements_by_class_name("_bz0w"):
         try:
             link = elem2.get_attribute("href")
             if link not in post_links :
-               elem.click()
-               time.sleep(2)
-               username = driver.find_element_by_class_name("nJAzx").get_attribute("title")
-               likes = driver.find_element_by_xpath("//div[@class='Nm9Fw']/button/span").get_attribute("innerHTML")
-               print("user : " + username)
-               print("likes : " + likes)
-               post_links.add(link)
+                elem.click()
+                time.sleep(2)
+                username = driver.find_element_by_class_name("nJAzx").get_attribute("title")
+                likes = int(driver.find_element_by_xpath("//div[@class='Nm9Fw']/button/span").get_attribute("innerHTML"))
+                post_links.add(link)
+                if username not in user_likes:
+                    user_likes[username]=0
+                user_likes[username]=user_likes.get(username)+likes
+            driver.find_element_by_class_name("ckWGn").click()
+            time.sleep(1)
+            print(user_likes)
+               
         except Exception as e:
             log_error(e, "trying to get linnks from the posts page : ")
             
 
-print(post_links)
-print(len(post_links))
+print(user_likes)
