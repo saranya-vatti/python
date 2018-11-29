@@ -69,30 +69,52 @@ while True:
         break
     last_height = new_height
 
-time.sleep(3)
+time.sleep(6)
 
 post_links = set()
 user_likes = {}
-for elem in driver.find_elements_by_class_name("_bz0w"):
-    #driver.find_elements_by_xpath("//div[@class='v1Nh3 kIKUG _bz0w']/a"):
-    for elem2 in elem.find_elements_by_xpath(".//a"):
-        try:
-            link = elem2.get_attribute("href")
-            if link not in post_links :
-                elem.click()
-                time.sleep(2)
-                username = driver.find_element_by_class_name("nJAzx").get_attribute("title")
-                likes = int(driver.find_element_by_xpath("//div[@class='Nm9Fw']/button/span").get_attribute("innerHTML"))
-                post_links.add(link)
-                if username not in user_likes:
-                    user_likes[username]=0
-                user_likes[username]=user_likes.get(username)+likes
-            driver.find_element_by_class_name("ckWGn").click()
-            time.sleep(1)
-            print(user_likes)
-               
-        except Exception as e:
-            log_error(e, "trying to get linnks from the posts page : ")
+last_visited = 0
+
+total = len(driver.find_elements_by_xpath("//div[@class='v1Nh3 kIKUG  _bz0w']/a"))
+print(total)
+while last_visited<54:
+    a_elem = driver.find_elements_by_xpath("//div[@class='v1Nh3 kIKUG  _bz0w']/a")[last_visited]
+    link = a_elem.get_attribute("href")
+    a_elem.click()
+    time.sleep(3)
+    username = driver.find_element_by_class_name("nJAzx").get_attribute("title")
+    likes = int(driver.find_element_by_xpath("//div[@class='Nm9Fw']/button/span").get_attribute("innerHTML"))
+    post_links.add(link)
+    if username not in user_likes:
+        user_likes[username]=0
+    user_likes[username]=user_likes.get(username)+likes
+    driver.find_element_by_class_name("ckWGn").click()
+    last_visited = last_visited+1
+    print(user_likes)
+
+##for elem in driver.find_elements_by_class_name("_bz0w"):
+##    #driver.find_elements_by_xpath("//div[@class='v1Nh3 kIKUG _bz0w']/a"):
+##    try:
+##        for elem2 in elem.find_elements_by_xpath(".//a"):
+##            try:
+##                link = elem2.get_attribute("href")
+##                if link not in post_links :
+##                    elem.click()
+##                    time.sleep(2)
+##                    username = driver.find_element_by_class_name("nJAzx").get_attribute("title")
+##                    likes = int(driver.find_element_by_xpath("//div[@class='Nm9Fw']/button/span").get_attribute("innerHTML"))
+##                    post_links.add(link)
+##                    if username not in user_likes:
+##                        user_likes[username]=0
+##                    user_likes[username]=user_likes.get(username)+likes
+##                driver.find_element_by_class_name("ckWGn").click()
+##                time.sleep(1)
+##                print(user_likes)
+##                   
+##            except Exception as e:
+##                log_error(e, "trying to get linnks from the posts page : ")
+##        except Exception as e:
+##            log_error(e, "trying to find the post in the link
             
 
 print(user_likes)
