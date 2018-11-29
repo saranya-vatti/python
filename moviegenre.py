@@ -18,8 +18,8 @@ import time
 
 #sourceDir = 'E:\\Movies\\Not seen\\'
 #destDir = 'E:\\Movies\\'
-sourceDir = 'H:\\Movies\\Not Seen\\'
-destDir = 'H:\\Movies\\'
+sourceDir = 'D:\\Move\\Not seen\\'
+destDir = 'D:\\Move\\'
 LOG_LEVELS = {
     "DEBUG" : 100,
     "INFO" : 200,
@@ -43,13 +43,9 @@ def log_debug(string):
 
 def parseFilename(filename):
     filename = os.path.splitext(filename)[0]
-    try:
-        filename = filename[re.search("[a-zA-Z]", filename).start():]
-    except Exception as e:
-        log_error(e, "parseFileName after parsing " + filename + " to " + newfilename)
-    filename = re.sub(r'\([^)]*\)', '', filename)
     filename = re.sub(r'\{[^}]*\}', '', filename)
     filename = re.sub(r'\[[^\]]*\]', '', filename)
+    filename = re.sub(r'\([^)]*\)', '', filename)
     filename = re.sub(r'(?i)(www.(.*).com)','',filename)
     filename = re.sub(r'(?i)(www.(.*).eu)','',filename)
     filename = re.sub(r'(?i)(www.(.*).pk)','',filename)
@@ -62,7 +58,8 @@ def parseFilename(filename):
                  "axxo","scOrp","MaNuDiL","SilverRG","MitZep",
                  "LIMITED","bdrip","saphire","etrg","FRENCH",
                  "HDRip","English","R5","NFO","LKRG","592x240",
-                 "25fps","689kbs","96mp3","MultiSub"];
+                 "25fps","689kbs","96mp3","MultiSub","UsaBit",
+                 "ExtraTorrentRG","SHiRK","ESub","1CDRip","FXG","juggs"];
     for nonostring in nonostrings:
         filename = re.sub(r'(?i)('+nonostring+')','',filename)
     filename = filename.split(',')[0]
